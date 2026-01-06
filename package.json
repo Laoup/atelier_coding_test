@@ -1,0 +1,40 @@
+{
+  "name": "atelier_coding_test",
+  "packageManager": "yarn@4.9.2",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "yarn tsc",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "db:create": "sequelize-cli db:create",
+    "db:migrate": "yarn sequelize-cli db:migrate",
+    "db:undo": "yarn sequelize-cli db:migrate:undo:all",
+    "db:generate": "yarn sequelize-cli migration:generate --name",
+    "db:seed": "yarn sequelize-cli db:seed:all",
+    "db:unseed": "yarn sequelize-cli db:seed:undo"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "eslint-config-prettier": "^10.1.8",
+    "fastify": "^5.6.2",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^25.0.3",
+    "@types/sequelize": "^6.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.7.4",
+    "sequelize-cli": "^6.6.5",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.52.0"
+  }
+}
