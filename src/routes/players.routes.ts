@@ -16,6 +16,6 @@ export const playerRoutes = async (server: FastifyInstance) => {
   server.get(
     '/stats',
     getStats
-  )  
+  )
 
 }

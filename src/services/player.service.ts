@@ -25,12 +25,34 @@ export class PlayerService {
     return player
   }
 
-  async getStats(): Promise<{ topCountry: CountryWinRatio }> {
+  async getStats(): Promise<{ topCountry: CountryWinRatio, imc: number }> {
     const countries = await this.repository.getCountryWinRatios()
+
+    const imc = await this.getIMC()
 
     return {
       topCountry: countries[0]!,
+      imc,
     }
+  }
+
+  async getIMC(): Promise<number> {
+    const players = await this.repository.findAll()
+
+    let totalImc = 0
+    let countedPlayers = 0
+
+    players.forEach((player) => {
+      const heightMeters = player.height / 100
+
+      const weightKg = player.weight / 1000
+      const imc = weightKg / (heightMeters * heightMeters)
+
+      totalImc += imc
+      countedPlayers += 1
+    })
+
+    return countedPlayers ? totalImc / countedPlayers : 0
   }
 }
 
