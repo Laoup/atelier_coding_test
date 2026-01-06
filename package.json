@@ -9,9 +9,10 @@
     "db:create": "sequelize-cli db:create",
     "db:migrate": "yarn sequelize-cli db:migrate",
     "db:undo": "yarn sequelize-cli db:migrate:undo:all",
-    "db:generate": "yarn sequelize-cli migration:generate --name",
+    "db:generate:migration": "yarn sequelize-cli migration:generate --name",
     "db:seed": "yarn sequelize-cli db:seed:all",
-    "db:unseed": "yarn sequelize-cli db:seed:undo"
+    "db:unseed": "yarn sequelize-cli db:seed:undo",
+    "db:generate:seed": "yarn sequelize-cli seed:generate --name"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

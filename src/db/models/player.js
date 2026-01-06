@@ -57,6 +57,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.ARRAY(DataTypes.INTEGER),
       },
+      country: {
+        allowNull: false,
+        type: DataTypes.JSONB
+      }
     },
     {
       sequelize,
