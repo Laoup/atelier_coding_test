@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { getPlayers, getPlayerById } from "../controllers/players.controllers";
+import { getPlayers, getPlayerById, getStats } from "../controllers/players.controllers";
 
 export const playerRoutes = async (server: FastifyInstance) => {
 
@@ -13,6 +13,9 @@ export const playerRoutes = async (server: FastifyInstance) => {
     getPlayerById
   )
 
-  
+  server.get(
+    '/stats',
+    getStats
+  )  
 
 }

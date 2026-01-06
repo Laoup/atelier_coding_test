@@ -1,4 +1,4 @@
-import { playerRepository, PlayerRepository } from "../repositories/player.repository";
+import { playerRepository, PlayerRepository, CountryWinRatio } from "../repositories/player.repository";
 import { Player } from "../types/player";
 
 
@@ -23,6 +23,14 @@ export class PlayerService {
       throw new PlayerNotFoundError(id)
 
     return player
+  }
+
+  async getStats(): Promise<{ topCountry: CountryWinRatio }> {
+    const countries = await this.repository.getCountryWinRatios()
+
+    return {
+      topCountry: countries[0]!,
+    }
   }
 }
 

@@ -5,6 +5,10 @@ export interface Player {
   shortname: string
   sex: string
   picture: string
+  country: {
+    code: string
+    picture: string
+  }
   rank: number
   points: number
   weight: number
