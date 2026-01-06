@@ -25,25 +25,31 @@ export class PlayerService {
     return player
   }
 
-  async getStats(): Promise<{ topCountry: CountryWinRatio, imc: number }> {
+  async getStats(): Promise<{ topCountry: CountryWinRatio, imc: number, medianHeight: number }> {
+    const players = await this.repository.findAll()
     const countries = await this.repository.getCountryWinRatios()
 
-    const imc = await this.getIMC()
+    const medianHeight = this.calculateMedian(
+      players
+        .map((player) => player.height)
+    )
+
+    const imc = this.calculateAverageImc(players)
 
     return {
       topCountry: countries[0]!,
       imc,
+      medianHeight,
     }
   }
 
-  async getIMC(): Promise<number> {
-    const players = await this.repository.findAll()
-
+  private calculateAverageImc(players: Player[]): number {
     let totalImc = 0
     let countedPlayers = 0
 
     players.forEach((player) => {
       const heightMeters = player.height / 100
+      if (!heightMeters) return
 
       const weightKg = player.weight / 1000
       const imc = weightKg / (heightMeters * heightMeters)
@@ -53,6 +59,17 @@ export class PlayerService {
     })
 
     return countedPlayers ? totalImc / countedPlayers : 0
+  }
+
+  private calculateMedian(values: number[]): number {
+    if (!values.length) return 0
+
+    const sorted = [...values].sort((a, b) => a - b)
+    const middle = Math.floor(sorted.length / 2)
+
+    return sorted.length % 2 !== 0
+      ? sorted[middle]!
+      : (sorted[middle - 1]! + sorted[middle]!) / 2
   }
 }
 
