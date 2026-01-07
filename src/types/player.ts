@@ -19,7 +19,7 @@ export interface Player {
   updatedAt: Date
 }
 
-// export type PlayerCreationAttributes = Omit<
-//   PlayerAttributes,
-//   'id' | 'createdAt' | 'updatedAt'
-// >
+export type PlayerCreationProps = Omit<
+  Player,
+  'id' | 'createdAt' | 'updatedAt'
+>

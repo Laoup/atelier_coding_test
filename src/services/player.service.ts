@@ -1,11 +1,18 @@
 import { playerRepository, PlayerRepository, CountryWinRatio } from "../repositories/player.repository";
-import { Player } from "../types/player";
+import { Player, PlayerCreationProps } from "../types/player";
 
 
 export class PlayerNotFoundError extends Error {
   constructor(id: number) {
     super(`Player with id ${id} not found.`)
     this.name = 'PlayerNotFoundError'
+  }
+}
+
+export class PlayerAlreadyExistError extends Error {
+  constructor(firstname: string, lastname: string, shortname: string) {
+    super(`Player named ${firstname} ${lastname} and shortname: ${shortname} already exist.`)
+    this.name = 'PlayerAlreadyExistError'
   }
 }
 
@@ -41,6 +48,16 @@ export class PlayerService {
       imc,
       medianHeight,
     }
+  }
+
+  async createPlayer(data: PlayerCreationProps): Promise<Player> {
+    const { firstname, lastname, shortname } = data
+    const player = await this.repository.findByGenericInfo(firstname, lastname, shortname)
+
+    if (player)
+      throw new PlayerAlreadyExistError(firstname, lastname, shortname)
+
+    return this.repository.create(data)
   }
 
   private calculateAverageImc(players: Player[]): number {

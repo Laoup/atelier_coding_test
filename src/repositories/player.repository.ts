@@ -1,4 +1,5 @@
-import { Player } from "../types/player"
+import { where } from "sequelize"
+import { Player, PlayerCreationProps } from "../types/player"
 
 const db = require('../db/models')
 
@@ -32,6 +33,8 @@ export const mapToPlayer = (model: any): Player => ({
 export interface PlayerRepository {
   findAll(): Promise<Player[]>
   findById(id: number): Promise<Player | null>
+  findByGenericInfo(firstname: string, lastname: string, shortname: string): Promise<Player | null>
+  create(data: PlayerCreationProps): Promise<Player>
   getCountryWinRatios(): Promise<CountryWinRatio[]>
 }
 
@@ -47,6 +50,24 @@ export const playerRepository: PlayerRepository = {
   async findById(id: number): Promise<Player | null> {
     const player = await db.Player.findByPk(id)
     return player ? mapToPlayer(player) : null
+  },
+
+  async findByGenericInfo(firstname: string, lastname: string, shortname: string): Promise<Player | null> {
+    const player = await db.Player.findOne({
+      where: {
+        firstname,
+        lastname,
+        shortname
+      }
+    })
+
+    return player ? mapToPlayer(player) : null
+  },
+
+  async create(data: PlayerCreationProps): Promise<Player> {
+    const created = await db.Player.create(data)
+
+    return mapToPlayer(created)
   },
 
   async getCountryWinRatios(): Promise<CountryWinRatio[]> {
