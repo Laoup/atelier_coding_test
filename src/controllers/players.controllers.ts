@@ -1,11 +1,15 @@
-import { FastifyReply, FastifyRequest } from "fastify"
-import { PlayerAlreadyExistError, PlayerNotFoundError, playerService } from "../services/player.service"
-import { PlayerCreationProps } from "../types/player"
+import { FastifyReply, FastifyRequest } from 'fastify'
+import {
+  PlayerAlreadyExistError,
+  PlayerNotFoundError,
+  playerService,
+} from '../services/player.service'
+import { PlayerCreationProps } from '../types/player'
 
 export const getPlayers = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
     const players = await playerService.getPlayers()
-    
+
     return reply.status(200).send({ data: players })
   } catch (error) {
     return reply.status(500).send({ message: 'Internal Server Error' })
@@ -19,7 +23,7 @@ export const getPlayerById = async (
   reply: FastifyReply
 ) => {
   const { id } = request.params
-  
+
   try {
     const player = await playerService.getPlayerById(id)
 
@@ -49,7 +53,6 @@ export const createPlayer = async (
   }>,
   reply: FastifyReply
 ) => {
-
   const {
     firstname,
     lastname,
@@ -62,7 +65,7 @@ export const createPlayer = async (
     weight,
     height,
     age,
-    last
+    last,
   } = request.body
 
   try {
@@ -78,7 +81,7 @@ export const createPlayer = async (
       weight,
       height,
       age,
-      last
+      last,
     })
 
     return reply.status(201).send({ data: player })

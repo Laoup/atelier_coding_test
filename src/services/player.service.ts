@@ -1,6 +1,9 @@
-import { playerRepository, PlayerRepository, CountryWinRatio } from "../repositories/player.repository";
-import { Player, PlayerCreationProps } from "../types/player";
-
+import {
+  playerRepository,
+  PlayerRepository,
+  CountryWinRatio,
+} from '../repositories/player.repository'
+import { Player, PlayerCreationProps } from '../types/player'
 
 export class PlayerNotFoundError extends Error {
   constructor(id: number) {
@@ -26,20 +29,16 @@ export class PlayerService {
   async getPlayerById(id: number): Promise<Player> {
     const player = await this.repository.findById(id)
 
-    if (!player)
-      throw new PlayerNotFoundError(id)
+    if (!player) throw new PlayerNotFoundError(id)
 
     return player
   }
 
-  async getStats(): Promise<{ topCountry: CountryWinRatio, imc: number, medianHeight: number }> {
+  async getStats(): Promise<{ topCountry: CountryWinRatio; imc: number; medianHeight: number }> {
     const players = await this.repository.findAll()
     const countries = await this.repository.getCountryWinRatios()
 
-    const medianHeight = this.calculateMedian(
-      players
-        .map((player) => player.height)
-    )
+    const medianHeight = this.calculateMedian(players.map((player) => player.height))
 
     const imc = this.calculateAverageImc(players)
 
@@ -54,8 +53,7 @@ export class PlayerService {
     const { firstname, lastname, shortname } = data
     const player = await this.repository.findByGenericInfo(firstname, lastname, shortname)
 
-    if (player)
-      throw new PlayerAlreadyExistError(firstname, lastname, shortname)
+    if (player) throw new PlayerAlreadyExistError(firstname, lastname, shortname)
 
     return this.repository.create(data)
   }
@@ -84,10 +82,8 @@ export class PlayerService {
     const sorted = [...values].sort((a, b) => a - b)
     const middle = Math.floor(sorted.length / 2)
 
-    return sorted.length % 2 !== 0
-      ? sorted[middle]!
-      : (sorted[middle - 1]! + sorted[middle]!) / 2
+    return sorted.length % 2 !== 0 ? sorted[middle]! : (sorted[middle - 1]! + sorted[middle]!) / 2
   }
 }
 
-export const playerService = new PlayerService(playerRepository) 
+export const playerService = new PlayerService(playerRepository)

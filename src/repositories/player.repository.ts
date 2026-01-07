@@ -1,5 +1,5 @@
-import { where } from "sequelize"
-import { Player, PlayerCreationProps } from "../types/player"
+import { where } from 'sequelize'
+import { Player, PlayerCreationProps } from '../types/player'
 
 const db = require('../db/models')
 
@@ -10,7 +10,6 @@ export interface CountryWinRatio {
   games: number
   ratio: number
 }
-
 
 export const mapToPlayer = (model: any): Player => ({
   id: model.id,
@@ -52,13 +51,17 @@ export const playerRepository: PlayerRepository = {
     return player ? mapToPlayer(player) : null
   },
 
-  async findByGenericInfo(firstname: string, lastname: string, shortname: string): Promise<Player | null> {
+  async findByGenericInfo(
+    firstname: string,
+    lastname: string,
+    shortname: string
+  ): Promise<Player | null> {
     const player = await db.Player.findOne({
       where: {
         firstname,
         lastname,
-        shortname
-      }
+        shortname,
+      },
     })
 
     return player ? mapToPlayer(player) : null

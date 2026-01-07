@@ -23,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       shortname: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       sex: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       picture: {
         allowNull: false,
@@ -59,8 +59,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       country: {
         allowNull: false,
-        type: DataTypes.JSONB
-      }
+        type: DataTypes.JSONB,
+      },
     },
     {
       sequelize,

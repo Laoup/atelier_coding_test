@@ -1,6 +1,6 @@
-require('dotenv').config();
+require('dotenv').config()
 
-const defaultDialect = 'postgres';
+const defaultDialect = 'postgres'
 
 const fromEnv = () => ({
   username: process.env.PGUSER || 'app',
@@ -9,7 +9,7 @@ const fromEnv = () => ({
   host: process.env.PGHOST || '127.0.0.1',
   port: Number(process.env.PGPORT || 5432),
   dialect: process.env.DB_DIALECT || defaultDialect,
-});
+})
 
 module.exports = {
   development: process.env.DATABASE_URL
@@ -23,4 +23,4 @@ module.exports = {
   production: process.env.DATABASE_URL
     ? { use_env_variable: 'DATABASE_URL', dialect: defaultDialect }
     : fromEnv(),
-};
+}

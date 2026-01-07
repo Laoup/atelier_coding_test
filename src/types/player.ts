@@ -19,7 +19,4 @@ export interface Player {
   updatedAt: Date
 }
 
-export type PlayerCreationProps = Omit<
-  Player,
-  'id' | 'createdAt' | 'updatedAt'
->
+export type PlayerCreationProps = Omit<Player, 'id' | 'createdAt' | 'updatedAt'>
