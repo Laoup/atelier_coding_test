@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify"
-import { playerService } from "../services/player.service"
+import { PlayerAlreadyExistError, PlayerNotFoundError, playerService } from "../services/player.service"
 import { PlayerCreationProps } from "../types/player"
 
 export const getPlayers = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -8,7 +8,6 @@ export const getPlayers = async (request: FastifyRequest, reply: FastifyReply) =
     
     return reply.status(200).send({ data: players })
   } catch (error) {
-    request.log.error({ err: error }, 'Failed to fetch players')
     return reply.status(500).send({ message: 'Internal Server Error' })
   }
 }
@@ -26,7 +25,10 @@ export const getPlayerById = async (
 
     return reply.status(200).send({ data: player })
   } catch (error) {
-    request.log.error({ err: error }, 'Failed to fetch player')
+    if (error instanceof PlayerNotFoundError) {
+      return reply.status(404).send({ message: error.message })
+    }
+
     return reply.status(500).send({ message: 'Internal Server Error' })
   }
 }
@@ -37,7 +39,6 @@ export const getStats = async (request: FastifyRequest, reply: FastifyReply) => 
 
     return reply.status(200).send({ data: stats })
   } catch (error) {
-    request.log.error({ err: error }, 'Failed to get stats')
     return reply.status(500).send({ message: 'Internal Server Error' })
   }
 }
@@ -82,6 +83,10 @@ export const createPlayer = async (
 
     return reply.status(201).send({ data: player })
   } catch (error) {
+    if (error instanceof PlayerAlreadyExistError) {
+      return reply.status(409).send({ message: error.message })
+    }
 
+    return reply.status(500).send({ message: 'Internal Server Error' })
   }
 }
