@@ -3,7 +3,7 @@
   "packageManager": "yarn@4.9.2",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "yarn tsc",
+    "build": "yarn tsc && cp -r src/db dist/",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "db:create": "sequelize-cli db:create",
