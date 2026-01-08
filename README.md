@@ -54,7 +54,7 @@ Get statistics: topCountry / imc / medianHeight based on players -> http://13.39
 POST :
 
 Post create a new player -> http://13.39.197.180:3000/players/
-💡 Necessary to create a player by specifyng EACH fields that a player is composed by
+💡 Necessary to create a player by specifyng EACH fields that a player is composed by (example object: to create a new player, below)
 ```
 
 
@@ -76,6 +76,29 @@ Post create a new player -> http://13.39.197.180:3000/players/
     "age": 39,
     "last": [1,0,1,1,0]
 }
+```
+
+Can be used like
+```
+curl -X POST http://13.39.197.180:3000/players/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "firstname": "Richard",
+    "lastname": "Gasquet",
+    "shortname": "R.GAS",
+    "sex": "M",
+    "picture": "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQwkQN7VEBCyaIGELttpWk1EpWn7ossEGyJ8F2o_1Aa8ZzEMprHkB1sXqqN2bE1AisiQNYp_19zFmv9xBsHRN6MOscCuM7ql6WNSEpcehnluCID1n3JF4MBW8c0v3QbbZtOW9nAEXYt08UK&s=19",
+    "country": {
+        "code": "FRA",
+        "picture": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAOVBMVEX///8AJlTOESYAGk5wfJLedHzNABoAI1LNCSFBSGrWSlX88/QAFkzMABQ5QWaEhpr/+vriho3VQ09w60AhAAABEElEQVR4nO3QRw3AAAwEsHTvyR9sUZzUhw3B1cR0feUMYxtTTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnTpw4ceLEiRMnfzuZYvboyTHH1BJzXveWcj/vGvMBE+jb6hdFhcsAAAAASUVORK5CYII="
+    },
+    "rank": 7,
+    "points": 1532,
+    "weight": 79500,
+    "height": 185,
+    "age": 39,
+    "last": [1,0,1,1,0]
+  }'
 ```
 
 ---
