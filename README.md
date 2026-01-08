@@ -137,6 +137,14 @@ yarn db:seed
 yarn dev
 ```
 
+## ▶️ How to test
+
+1) Launch test:
+```bash
+yarn test
+```
+
+
 ---
 
 ## 🚧 What to Improve & Do Next
